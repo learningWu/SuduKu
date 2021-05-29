@@ -4,12 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionContext
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.wzx.suduku.ui.theme.SuduKuTheme
 
 /**
@@ -36,12 +38,29 @@ open class BaseActivity : ComponentActivity() {
 
 @Composable
 fun Container(title: CharSequence, content: @Composable () -> Unit) {
-    Column {
+    // Scaffold 留出内容区域
+    Scaffold(topBar = {
         TopAppBar(
             title = {
                 Text(text = title.toString(), maxLines = 2)
+            },
+            actions = {
+                IconButton(onClick = { /* doSomething() */ }) {
+                    Icon(Icons.Filled.Favorite, contentDescription = null)
+                }
             }
         )
+    }) { innerPadding ->
+        BodyContent(modifier = Modifier.padding(innerPadding)) {
+            content()
+        }
+    }
+
+}
+
+@Composable
+fun BodyContent(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+    Column(modifier = modifier.padding(8.dp)) {
         content()
     }
 }
