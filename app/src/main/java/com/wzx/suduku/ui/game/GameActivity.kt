@@ -28,10 +28,8 @@ import com.wzx.suduku.ui.theme.SuduKuTheme
 class GameActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            SuduKuTheme {
-                ChessBoard()
-            }
+        setContentView("游戏界面") {
+            ChessBoard()
         }
     }
 }
@@ -39,10 +37,13 @@ class GameActivity : BaseActivity() {
 @Preview
 @Composable
 fun ChessBoard() {
-    Column(modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
+    ) {
         repeat(9) {
             Row {
                 repeat(9) {
@@ -59,7 +60,7 @@ fun EditText() {
         mutableStateOf("")
     }
     BasicTextField(
-        textStyle = TextStyle( Color.Black),
+        textStyle = TextStyle(Color.Black),
         value = state.value,
         onValueChange = { state.value = it },
         maxLines = 1,
